@@ -1,4 +1,4 @@
-<div class="layout-library">
+<div class="layout-library" *ngIf="!isLoading">
     <div class="header">
         <div class="title">
             <i class="icon-svg icon-svg--sm">
@@ -15,6 +15,8 @@
             {{viewMoreButtonText}}
         </button>
     </div>
+
+
     <div class="cards-container"
         *ngIf="type !== LibraryCardGridTypes.INFINITE_CARD_GRID && type !== LibraryCardGridTypes.INFINITE_CARD_GRID_WITH_HOVER">
         <div class="item" [ngClass]="maxCardCount ? 'show-' + maxCardCount: ''"
@@ -47,4 +49,28 @@
             </sb-library-card>
         </div>
     </div>
+</div>
+
+<!--Loading Indicator for header-->
+<div class="layout-library" *ngIf="isLoading">
+<div class="header" *ngIf="isLoading">
+        <div class="loading-animation sb--card--highlighter" style="width:100px;height:20px;">
+                <i class="icon-svg icon-svg--sm"></i>
+        </div>
+</div>
+<div class="cards-container" *ngIf="maxCardCount > 0">
+    <div class="item" [ngClass]="maxCardCount ? 'show-' + maxCardCount: ''"
+        *ngFor="let element of range(maxCardCount); let i=index">
+        <sb-library-card [isLoading]="isLoading" [type]="LibraryCardTypes.DESKTOP_TEXTBOOK">
+        </sb-library-card>
+    </div>    
+</div>
+<div class="cards-container" *ngIf="maxCardCount <= 0">
+    <div class="item"
+        *ngFor="let number of [0,1,2]">
+        <sb-library-card [isLoading]="isLoading" [type]="LibraryCardTypes.DESKTOP_TEXTBOOK">
+        </sb-library-card>
+    </div>
+</div>
+
 </div>

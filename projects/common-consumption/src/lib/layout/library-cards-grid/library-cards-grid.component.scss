@@ -29,7 +29,7 @@
         vertical-align: middle;
         height: calculateRem(17px);
         width: calculateRem(14px);
-        top: -calculateRem(2px);
+        top: calculateRem(-2px);
       }
       .badge {
         display: inline-block;
@@ -49,20 +49,34 @@
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    // justify-content: space-between;
+    justify-content: space-between;
+    // display: grid;
+    // grid-template-columns: repeat(auto-fill, minmax(292px, 1fr));
+    // grid-gap: calculateRem(24px) calculateRem(16px);
     margin: 0 0px;
     .item {
-      @include padding(0, calculateRem(16px), 0, 0);
+       @include padding(0, calculateRem(16px), 0, 0);
       box-sizing: border-box;
-      margin-bottom: calculateRem(24px);
-      @media (max-width: 640px) {
+       margin-bottom: calculateRem(24px);
+      @media screen and (max-width: 600px) and (min-width: 200px) {
         flex: 0 100% !important;
         max-width: 100% !important;
+         margin-bottom: calculateRem(15px);
+         padding: 0 !important;
+      }
+      @media screen and (max-width: 800px) and (min-width: 600px) {
+        flex: 0 50% !important;
+        max-width: 50% !important;
+        margin-bottom: calculateRem(15px);
+      }
+      @media screen and (max-width: 1200px) and (min-width: 800px) {
+        flex: 0 33% !important;
+        max-width: 33% !important;
         margin-bottom: calculateRem(15px);
       }
       &.show-2 {
-        flex: 0 0 50%;
-        max-width: 50%;
+         flex: 0 0 50%;
+         max-width: 50%;
         &:nth-child(2n) {
           padding: 0 0px 0 0px;
         }
@@ -70,25 +84,85 @@
       &.show-3 {
         flex: 0 0 33.33%;
         max-width: 33.33%;
-        &:nth-child(3n) {
+        /*&:nth-child(3n) {
           padding: 0 0px 0 0px;
-        }
+        }*/
       }
       &.show-4 {
         flex: 0 0 25%;
         max-width: 25%;
-        &:nth-child(4n) {
+        /*&:nth-child(4n) {
           padding: 0 0px 0 0px;
-        }
+        }*/
       }
       &.show-5 {
         flex: 0 0 20%;
         max-width: 20%;
-        &:nth-child(5n) {
+        /*&:nth-child(5n) {
           padding: 0 0px 0 0px;
-        }
+        }*/
       }
     }
   }
-  
+//Some Refactoring of Code required to SB-style
+$background: #f6f7f8;
+$grey-nuance-lighter: #eeeeee;
+$grey-nuance-darker: #dddddd;
+$fade-grey: #e8e8e8;
+
+  .sb--card--highlighter {
+    height: 12px;
+    width: 100%;
+    margin-top:5px;
+    min-width: 35px;
+  }
+  .loading-animation {
+    -webkit-animation-duration: 1s;
+    animation-duration: 1s;
+    -webkit-animation-fill-mode: forwards;
+    animation-fill-mode: forwards;
+    -webkit-animation-iteration-count: infinite;
+    animation-iteration-count: infinite;
+    -webkit-animation-name: placeload;
+    animation-name: placeload;
+    -webkit-animation-timing-function: linear;
+    animation-timing-function: linear;
+    background: $background;
+    background: $grey-nuance-lighter;
+    background: -webkit-gradient(
+      linear,
+      left top,
+      right top,
+      color-stop(8%, $grey-nuance-lighter),
+      color-stop(18%, $grey-nuance-darker),
+      color-stop(33%, $grey-nuance-lighter)
+    );
+    background: -webkit-linear-gradient(
+      left,
+      #eeeeee 8%,
+      #dddddd 18%,
+      #eeeeee 33%
+    );
+    background: linear-gradient(to right, $grey-nuance-lighter 8%, $grey-nuance-darker 18%, $grey-nuance-lighter 33%);
+    -webkit-background-size: 800px 104px;
+    background-size: 1200px 104px;
+    position: relative;
+  }
+  @-webkit-keyframes placeload{
+    0% {
+      background-position: -468px 0;
+    }
+    100% {
+      background-position: 468px 0;
+    }
+  }
+  @keyframes placeload {
+    0% {
+      background-position: -468px 0;
+    }
+    100% {
+      background-position: 468px 0;
+    }
+  }
+
 }

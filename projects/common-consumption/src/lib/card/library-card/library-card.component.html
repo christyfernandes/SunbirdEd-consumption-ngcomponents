@@ -1,14 +1,10 @@
 <!-- card component -->
 <div class="sb--card"
   [ngClass]="{'sb--card--recently-viewed': type === LibraryCardTypes.RECENTLY_VIEWED, 'offline': isOffline}"
-  (click)="onClick($event)">
+  (click)="onClick($event)" *ngIf="!isLoading">
   <div class="sb--card__main-area">
     <!-- card img -->
     <div class="sb--card__img">
-      <!-- <div class="img-container">
-        <img *ngIf="!isOffline" [src]="content?.appIcon || defaultImg" alt="">
-        <img *ngIf="isOffline" [src]="offlineImg || defaultImg" alt="">
-      </div> -->
       <div class="img-container">
         <img [src]="cardImg" alt="">
       </div>
@@ -16,10 +12,10 @@
     <!-- card mobile view details -->
     <div class="sb--card__info">
       <h4 class="sb--card__title sb--card__title--ellipsis" title="{{content?.name}}">{{content?.name}}</h4>
-      <div class="sb--card__meta1" *ngIf="content?.subject?.length || content?.gradeLevel?.length">
-        <span class="data_1 ellipsis" title="{{content?.subject}}">{{content?.subject}}</span>
+      <div class="sb--card__meta1 text-left" *ngIf="content?.subject?.length || content?.gradeLevel?.length">
+        <span class="data_1 sb__ellipsis" title="{{content?.subject}}">{{content?.subject}}</span>
         <span *ngIf="content?.subject?.length && content?.gradeLevel?.length" class="dot-divider"></span>
-        <span class="data_2 ellipsis" title="{{content?.gradeLevel}}">{{content?.gradeLevel}}</span>
+        <span class="data_2 sb__ellipsis" title="{{content?.gradeLevel}}">{{content?.gradeLevel}}</span>
       </div>
     </div>
   </div>
@@ -31,7 +27,7 @@
       <div class="sb--card__meta2">
         <div class="sb--card__meta2_data" *ngIf="content?.medium"><span class="">{{moreInfoLabel}}:
             {{content.medium}}</span></div>
-        <div class="sb--card__org sb__ellipsis" *ngIf="content?.organisation">{{content.organisation}}</div>
+        <div class="sb--card__org sb__ellipsis text-left" *ngIf="content?.organisation">{{content.organisation}}</div>
       </div>
       <!-- other meta info Badge and card category Book, learn, practice -->
       <div class="sb--card__tags">
@@ -63,3 +59,32 @@
 
   </ng-container>
 </div>
+
+  <div class="sb--card" *ngIf="isLoading">
+      <div class="sb--card__main-area">
+          <!-- card img -->
+          <div class="sb--card__img">
+            <div class="img-container loading-animation">
+              
+            </div>
+          </div>
+          <!-- card mobile view details -->
+          <div class="sb--card__info">
+            <h4 class="sb--card--title loading-animation sb--card--highlighter"></h4>
+            <div class="sb--card__meta1">
+              <span class="data_1 sb__ellipsis loading-animation sb--card--highlighter"></span>
+              <span class="data_2 sb__ellipsis loading-animation sb--card--highlighter" style="width:80%;"></span>
+            </div>
+          </div>
+        </div>
+        <div class="sb--card__moreinfo" style="display:block;" *ngIf="type === LibraryCardTypes.DESKTOP_TEXTBOOK || type === LibraryCardTypes.QRCODE_RESULT">
+              <div style="float:left;width:60%">
+                <div class="label loading-animation sb--card--highlighter" style="width:80%;"></div>
+                <div class="value loading-animation sb--card--highlighter" style="width:60%;"></div>
+              </div>
+              <div style="float:right;width:30%">
+                <div class="label loading-animation sb--card--highlighter" style="width:80%;"></div>
+              </div>
+              <div style="clear:both;"></div>
+        </div>
+  </div>

@@ -21,6 +21,8 @@ export class LibraryCardsGridComponent {
     @Input() viewMoreButtonText = defaultLibraryCardsGrid.viewMoreButtonText;
     @Input('hover-template') gridTemplate: TemplateRef<any>;
 
+    @Input() isLoading:boolean;
+
 
     @Output() viewMoreClick: EventEmitter<IViewMoreClick> = new EventEmitter<IViewMoreClick>();
     @Output() cardClick: EventEmitter<ICardClick> = new EventEmitter<ICardClick>();
@@ -49,5 +51,8 @@ export class LibraryCardsGridComponent {
 
     hoverActionClicked(event) {
         this.hoverActionClick.emit(event);
+    }
+    range(maxCardCounter) {
+        return  new Array(maxCardCounter);
     }
 }
